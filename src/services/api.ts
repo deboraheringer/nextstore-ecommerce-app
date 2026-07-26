@@ -31,3 +31,25 @@ export async function getProductById(id: number): Promise<Product> {
 
   return response.json();
 }
+
+// 📌 Buscar todas as categorias disponíveis
+export async function getCategories(): Promise<string[]> {
+  const response = await fetch(`${BASE_URL}/products/category-list`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch categories");
+  }
+
+  return response.json();
+}
+
+// 📌 Buscar produtos por categoria específica
+export async function getProductsByCategory(category: string): Promise<ProductsResponse> {
+  const response = await fetch(`${BASE_URL}/products/category/${encodeURIComponent(category)}`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch products for category: ${category}`);
+  }
+
+  return response.json();
+}
