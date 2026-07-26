@@ -22,11 +22,11 @@ O projeto consome a API externa **DummyJSON** para exibir um catálogo rico em p
 ### Fase 1: Setup & Documentação (Atual)
 - [x] Criação do projeto Next.js com App Router e TypeScript
 - [x] Configuração do Shadcn/ui para o Design System
-- [ ] Estruturação de pastas (`src/types`, `src/services`, `src/components`, etc.)
+- [x] Estruturação de pastas (`src/types`, `src/services`, `src/components`, etc.)
 
 ### Fase 2: Interface & Consumo da DummyJSON (Frontend)
-- [ ] Definição das `interfaces` TypeScript para os produtos da DummyJSON
-- [ ] Criação dos componentes de Header, Footer e Product Card
+- [x] Definição das `interfaces` TypeScript para os produtos da DummyJSON
+- [x] Criação dos componentes de Header, Footer e Product Card
 - [ ] Implementação da Vitrine Principal (Home) com busca e filtros por categoria
 - [ ] Criação da página de Detalhes do Produto (`/product/[id]`)
 
