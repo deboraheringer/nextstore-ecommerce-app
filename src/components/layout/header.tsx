@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag, Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { CartSheet } from "@/components/cart/cart-sheet"; // Importamos o CartSheet
+import { ShoppingBag } from "lucide-react";
+import { CartSheet } from "@/components/cart/cart-sheet";
+import { SearchBar } from "@/components/layout/search-bar";
 
 export function Header() {
   return (
@@ -15,14 +15,8 @@ export function Header() {
           <span>NextStore</span>
         </Link>
 
-        <div className="flex-1 max-w-md hidden md:flex relative">
-          <Input 
-            type="search" 
-            placeholder="Search products..." 
-            className="w-full pl-9"
-          />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
-        </div>
+        {/* Substituímos pelo componente isolado SearchBar */}
+        <SearchBar />
 
         <div className="flex items-center gap-2">
           <CartSheet />
