@@ -1,12 +1,12 @@
-# 🛒 E-Commerce Fullstack (Nome Provisório)
+# E-Commerce Fullstack (Nome Provisório)
 
-## 📌 Visão Geral
+## Visão Geral
 Aplicação de e-commerce moderna e performática desenvolvida com a stack Fullstack JavaScript/TypeScript.
 O projeto consome a API externa **DummyJSON** para exibir um catálogo rico em produtos, e utiliza uma infraestrutura própria no backend para gerenciar contas de usuários, carrinhos e checkout com **Stripe**.
 
 ---
 
-## 🛠️ Tech Stack & Arquitetura
+## Tech Stack & Arquitetura
 
 * **Frontend Framework:** Next.js (App Router) + React + TypeScript
 * **Estilização & UI:** Tailwind CSS + Shadcn/ui
@@ -17,7 +17,7 @@ O projeto consome a API externa **DummyJSON** para exibir um catálogo rico em p
 
 ---
 
-## 🗺️ Roadmap de Desenvolvimento (Fases)
+## Roadmap de Desenvolvimento (Fases)
 
 ### Fase 1: Setup & Documentação (Atual)
 - [x] Criação do projeto Next.js com App Router e TypeScript
