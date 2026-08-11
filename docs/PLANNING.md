@@ -1,52 +1,53 @@
-# E-Commerce Fullstack (NextStore)
+# Project Planning & Roadmap — NextStore
 
-## Visão Geral
-Aplicação de e-commerce moderna e performática desenvolvida com a stack Fullstack JavaScript/TypeScript.
-O projeto consome a API externa **DummyJSON** para exibir um catálogo rico em produtos, e utiliza uma infraestrutura própria no backend para gerenciar contas de usuários, carrinhos e checkout com **Stripe**.
+## Overview
+A high-performance, full-stack e-commerce application built with JavaScript/TypeScript.
+The application consumes the external **DummyJSON API** to power a rich product catalog while leveraging a custom backend infrastructure to manage user data, shopping carts, and financial transactions via **Stripe**.
 
 ---
 
-## Tech Stack & Arquitetura
+## Tech Stack & Architecture
 
 * **Frontend Framework:** Next.js (App Router) + React + TypeScript
-* **Estilização & UI:** Tailwind CSS + Shadcn/ui + Lucide Icons
-* **Banco de Dados Relacional:** PostgreSQL (Neon / Supabase)
+* **Styling & UI:** Tailwind CSS + Shadcn/ui + Lucide Icons
+* **Relational Database:** PostgreSQL (Neon Serverless)
 * **ORM:** Drizzle ORM
-* **Processamento de Pagamentos:** Stripe API (Test Mode)
-* **API de Produtos:** DummyJSON API
+* **Payment Processing:** Stripe API (Test Mode)
+* **Product API:** DummyJSON API
 
 ---
 
-## Roadmap de Desenvolvimento (Fases)
+## Development Roadmap (Phases)
 
-### Fase 1: Setup & Documentação
-- [x] Criação do projeto Next.js com App Router e TypeScript
-- [x] Configuração do Shadcn/ui para o Design System
-- [x] Estruturação de pastas (`src/types`, `src/services`, `src/components`, etc.)
+### Phase 1: Setup & Documentation
+- [x] Initialize Next.js project with App Router and TypeScript
+- [x] Configure Shadcn/ui for Design System
+- [x] Folder structure organization (`src/types`, `src/services`, `src/components`, etc.)
 
-### Fase 2: Interface & Consumo da DummyJSON (Frontend)
-- [x] Definição das `interfaces` TypeScript para os produtos da DummyJSON
-- [x] Criação dos componentes de Header e Product Card
-- [x] Implementação do `CartContext` com persistência no `localStorage`
-- [x] Gaveta lateral do carrinho (`CartSheet`) com controles de quantidade e subtotal (com fix de Hydration via `useSyncExternalStore`)
-- [x] Barra de pesquisa com **Autocomplete/Sugestões em tempo real** (Debounced)
-- [x] Barra lateral esquerda (Sidebar) para **Filtro de Produtos por Categoria**
-- [x] Implementação da Vitrine Principal (Home) com integração total de busca e categorias
-- [x] Criação da página de Detalhes do Produto (`/product/[id]`) com galeria de imagens e seletor de quantidade
+### Phase 2: Interface & External API Consumption (Frontend)
+- [x] Define TypeScript `interfaces` for DummyJSON products
+- [x] Build Header and Product Card components
+- [x] Implement `CartContext` with `localStorage` persistence
+- [x] Slide-over Cart Drawer (`CartSheet`) with quantity controls and subtotal calculation (Hydration fixed via `useSyncExternalStore`)
+- [x] Real-time **Debounced Autocomplete** search bar
+- [x] Add `<Suspense>` wrapper to fix SSG page prerendering
+- [x] Sidebar for **Product Category Filtering**
+- [x] Homepage showcase integrating search and category filters
+- [x] Dynamic Product Details page (`/product/[id]`) with image gallery and quantity picker
 
-### Fase 3: Persistência & Banco de Dados (Backend)
-- [x] Configuração do PostgreSQL (Neon DB)
-- [x] Definição e configuração do Drizzle ORM
+### Phase 3: Persistence & Database (Backend)
+- [x] PostgreSQL database setup (Neon DB)
+- [x] Drizzle ORM schema configuration and database connection
 
-### Fase 4: Integração Financeira & Fluxo de Pagamento
-- [x] Configuração do SDK do Stripe no Next.js (`src/lib/stripe.ts`)
-- [x] Criação da Rota de API `/api/checkout` para geração da Checkout Session com captura de endereço
-- [x] Redirecionamento e tratamento no frontend
-- [x] Criação da tela de sucesso de compra (`/checkout/success`) com esvaziamento automático do carrinho
-- [ ] Implementação de Webhooks do Stripe (`/api/webhooks/stripe`) para confirmação assíncrona de pedidos
+### Phase 4: Financial Integration & Checkout Flow
+- [x] Configure Stripe SDK in Next.js (`src/lib/stripe.ts`)
+- [x] Create API Route `/api/checkout` for Stripe Checkout Session creation
+- [x] Frontend checkout redirection handling
+- [x] Success page (`/checkout/success`) with automatic cart clearing
+- [ ] Implement Stripe Webhooks (`/api/webhooks/stripe`) for asynchronous order fulfillment
 
-### Fase 5: Refinamento & Deploy
-- [ ] Adicionar Toasts de Feedback Visual com `sonner` ao interagir com o carrinho
-- [ ] Skeletons e Loading States com Tailwind/Shadcn
-- [ ] Deploy do Frontend/Backend na Vercel
-- [ ] Atualização final do `README.md` com fotos do projeto publicado
+### Phase 5: Refinement & Deployment
+- [x] Deploy Frontend and Database connection on Vercel
+- [ ] Add visual Feedback Toasts using `sonner` for cart actions
+- [ ] Skeletons & Loading States with Tailwind/Shadcn
+- [ ] Final README documentation update with live production link
