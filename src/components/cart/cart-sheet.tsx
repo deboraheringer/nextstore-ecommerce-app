@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
-import { Trash2, Plus, Minus, ShoppingBag } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingBag, Loader2 } from "lucide-react";
 import { useCart } from "@/context/cart-context";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +15,45 @@ import {
 } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 
+// Hook auxiliar para detectar montagem no cliente sem causar renderização em cascata
+const emptySubscribe = () => () => {};
+function useIsMounted() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,  // Snapshot no cliente
+    () => false  // Snapshot no servidor (SSR)
+  );
+}
+
 export function CartSheet() {
   const { cart, totalItems, totalPrice, updateQuantity, removeFromCart } = useCart();
+  const [isLoading, setIsLoading] = useState(false);
+  const mounted = useIsMounted();
+
+  const handleCheckout = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: cart }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("Checkout URL missing in response:", data);
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Sheet>
@@ -23,7 +61,7 @@ export function CartSheet() {
         <Button variant="outline" size="icon" className="relative">
           <ShoppingBag className="h-5 w-5" />
           <span className="sr-only">Shopping Cart</span>
-          {totalItems > 0 && (
+          {mounted && totalItems > 0 && (
             <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
               {totalItems}
             </Badge>
@@ -35,13 +73,13 @@ export function CartSheet() {
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <ShoppingBag className="h-5 w-5" />
-            Shopping Cart ({totalItems})
+            Shopping Cart ({mounted ? totalItems : 0})
           </SheetTitle>
         </SheetHeader>
 
         {/* Lista de Itens */}
         <div className="flex-1 overflow-y-auto py-4 space-y-4">
-          {cart.length === 0 ? (
+          {!mounted || cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center text-neutral-500 space-y-2">
               <ShoppingBag className="h-12 w-12 text-neutral-300" />
               <p className="font-medium">Your cart is empty</p>
@@ -77,6 +115,7 @@ export function CartSheet() {
                       size="icon"
                       className="h-6 w-6"
                       onClick={() => updateQuantity(product.id, quantity - 1)}
+                      disabled={isLoading}
                     >
                       <Minus className="h-3 w-3" />
                     </Button>
@@ -88,6 +127,7 @@ export function CartSheet() {
                       size="icon"
                       className="h-6 w-6"
                       onClick={() => updateQuantity(product.id, quantity + 1)}
+                      disabled={isLoading}
                     >
                       <Plus className="h-3 w-3" />
                     </Button>
@@ -104,6 +144,7 @@ export function CartSheet() {
                     size="icon"
                     className="h-7 w-7 text-neutral-400 hover:text-red-600"
                     onClick={() => removeFromCart(product.id)}
+                    disabled={isLoading}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -114,13 +155,20 @@ export function CartSheet() {
         </div>
 
         {/* Rodapé do Carrinho */}
-        {cart.length > 0 && (
+        {mounted && cart.length > 0 && (
           <SheetFooter className="border-t pt-4 flex-col gap-3 sm:flex-col">
             <div className="flex justify-between items-center w-full">
               <span className="text-sm text-neutral-600">Total</span>
               <span className="text-lg font-bold">${totalPrice.toFixed(2)}</span>
             </div>
-            <Button className="w-full font-semibold">Proceed to Checkout</Button>
+            <Button 
+              className="w-full font-semibold" 
+              onClick={handleCheckout} 
+              disabled={isLoading}
+            >
+              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Proceed to Checkout
+            </Button>
           </SheetFooter>
         )}
       </SheetContent>
