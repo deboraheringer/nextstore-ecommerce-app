@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { CartSheet } from "@/components/cart/cart-sheet";
@@ -15,8 +16,10 @@ export function Header() {
           <span>NextStore</span>
         </Link>
 
-        {/* Substituímos pelo componente isolado SearchBar */}
-        <SearchBar />
+        {/* Envolvido em Suspense para permitir a compilação do Next.js */}
+        <Suspense fallback={<div className="w-full max-w-sm h-10 bg-neutral-100 animate-pulse rounded-md" />}>
+          <SearchBar />
+        </Suspense>
 
         <div className="flex items-center gap-2">
           <CartSheet />
