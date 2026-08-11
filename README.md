@@ -2,7 +2,7 @@
 
 A modern, full-stack e-commerce application built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**. 
 
-The application consumes product data from the **DummyJSON API** and features interactive catalog navigation, debounced search autocomplete, category filtering, persistent shopping cart, PostgreSQL database management, and Stripe payment integration.
+The application consumes product data from the **DummyJSON API** and features interactive catalog navigation, debounced search autocomplete, category filtering, persistent shopping cart, PostgreSQL database integration, and hosted Stripe checkout payment integration.
 
 ---
 
@@ -14,7 +14,7 @@ The application consumes product data from the **DummyJSON API** and features in
 - **UI Components:** [Shadcn/ui](https://ui.shadcn.com/)
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
-- **Database:** PostgreSQL
+- **Database:** PostgreSQL (Neon Serverless)
 - **Payments:** [Stripe API](https://stripe.com/)
 - **Product Data:** [DummyJSON API](https://dummyjson.com/)
 
@@ -28,19 +28,31 @@ This project is currently under active development.
 - [x] UI System setup (Shadcn/ui)
 - [x] API Service integration with DummyJSON
 - [x] Persistent Shopping Cart (`CartContext` + `localStorage`)
-- [x] Slide-over Cart Drawer (`CartSheet`) with quantity controls
+- [x] Slide-over Cart Drawer (`CartSheet`) with quantity controls and SSR Hydration fix
 - [x] Search Bar with real-time **Debounced Autocomplete**
 - [x] Left Sidebar for **Category Filtering**
 - [x] Homepage product grid with dynamic search and category URL params
 - [x] Dynamic Product Details page (`/product/[id]`) with image gallery
-- [ ] Database schema definition (Drizzle ORM + PostgreSQL)
-- [ ] Stripe checkout integration
+- [x] Database schema definition (Drizzle ORM + PostgreSQL)
+- [x] **Stripe Checkout Integration** (Session creation route + hosted checkout redirect)
+- [x] **Post-Checkout Flow** (`/checkout/success` page with automatic cart cleanup)
+- [ ] Visual Toast Notifications (`sonner`)
+- [ ] Stripe Webhooks for asynchronous order fulfillment
+- [ ] Vercel Deployment
 
 ---
 
 ## Getting Started
 
-First, run the development server:
+First, set up your local environment variables in a `.env.local` file:
 
+```env
+DATABASE_URL="postgresql://..."
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
+STRIPE_SECRET_KEY="sk_test_..."
+NEXT_PUBLIC_APP_URL="http://localhost:3000" 
+```
+
+Then, run the development server:
 ```bash
 npm run dev
