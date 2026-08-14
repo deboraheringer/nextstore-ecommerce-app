@@ -24,6 +24,7 @@ export async function POST(req: Request) {
             name: item.product.title,
             description: item.product.description || undefined,
             ...(isValidImageUrl && { images: [item.product.thumbnail] }),
+            metadata: { productId: item.product.id.toString() },
           },
           unit_amount: Math.round(item.product.price * 100), // Preço em centavos
         },

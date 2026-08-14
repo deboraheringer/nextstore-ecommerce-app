@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { Product, CartItem } from "@/types/product";
+import { toast } from "sonner";
 
 interface CartContextType {
   cart: CartItem[];
@@ -52,15 +53,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
       return [...prevCart, { product, quantity: 1 }];
     });
+
+    // dispara o aviso de sucesso
+    toast.success(`${product.title} adicionado no carrinho!`, {
+      description: "Verifique o carrinho para finalizar a compra.",
+    });
   }, []);
 
   const removeFromCart = useCallback((productId: number) => {
     setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
+    
+    // dispara um aviso discreto quando remove um item
+    toast("Item removido do carrinho");
   }, []);
 
   const updateQuantity = useCallback((productId: number, quantity: number) => {
     if (quantity <= 0) {
       setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
+      toast("Item removido do carrinho");
       return;
     }
     setCart((prevCart) =>
