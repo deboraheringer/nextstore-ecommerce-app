@@ -39,8 +39,8 @@ This project is currently under active development.
 - [x] **Stripe Checkout Integration** (Session creation route + hosted checkout redirect)
 - [x] **Post-Checkout Flow** (`/checkout/success` page with automatic cart cleanup)
 - [x] **Vercel Deployment**
-- [ ] Visual Toast Notifications (`sonner`)
-- [ ] Stripe Webhooks for asynchronous order fulfillment
+- [x] Visual Toast Notifications (`sonner`)
+- [x] Stripe Webhooks for asynchronous order fulfillment
 
 ---
 
