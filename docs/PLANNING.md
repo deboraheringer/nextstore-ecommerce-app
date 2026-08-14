@@ -44,10 +44,10 @@ The application consumes the external **DummyJSON API** to power a rich product 
 - [x] Create API Route `/api/checkout` for Stripe Checkout Session creation
 - [x] Frontend checkout redirection handling
 - [x] Success page (`/checkout/success`) with automatic cart clearing
-- [ ] Implement Stripe Webhooks (`/api/webhooks/stripe`) for asynchronous order fulfillment
+- [x] Implement Stripe Webhooks (`/api/webhooks/stripe`) for asynchronous order fulfillment
 
 ### Phase 5: Refinement & Deployment
 - [x] Deploy Frontend and Database connection on Vercel
-- [ ] Add visual Feedback Toasts using `sonner` for cart actions
+- [x] Add visual Feedback Toasts using `sonner` for cart actions
 - [ ] Skeletons & Loading States with Tailwind/Shadcn
 - [ ] Final README documentation update with live production link
