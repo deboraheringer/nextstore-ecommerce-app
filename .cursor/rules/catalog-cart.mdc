@@ -1,0 +1,28 @@
+---
+description: Catálogo DummyJSON, tipos e CartContext no client
+globs: src/services/**,src/types/**,src/context/**
+alwaysApply: false
+---
+
+# Catálogo e carrinho
+
+Única fonte do catálogo: `https://dummyjson.com` via `src/services/api.ts` (`getProducts`, `searchProducts`, `getProductById`, `getCategories`, `getProductsByCategory`).
+
+Tipos em `src/types/product.ts` (`Product`, `ProductsResponse`, `CartItem`). Não redefinir interfaces inline.
+
+## Home
+
+Filtros em `src/app/page.tsx`: `?q=` → `searchProducts`; `?category=` → `getProductsByCategory`.
+Search com debounce (300ms em `SearchBar`) e `<Suspense>` no `Header` (usa `useSearchParams`).
+
+## Carrinho
+
+Client-only: `CartContext` + `localStorage` (`nextstore_cart`). Não criar tabela de cart no Postgres.
+
+```ts
+// ❌ BAD
+interface Produto { id: number; title: string }
+
+// ✅ GOOD
+import { Product, CartItem } from "@/types/product";
+```

@@ -1,0 +1,23 @@
+---
+description: App Router, Shadcn radix-nova e Tailwind v4 no NextStore
+globs: src/app/**/*.tsx,src/components/**/*.tsx,src/app/globals.css,components.json
+alwaysApply: false
+---
+
+# UI e App Router
+
+- Server Components por padrão. `"use client"` só com estado, evento ou hooks do browser (ex.: `SearchBar`, `CartSheet`).
+- UI: Shadcn estilo `radix-nova` em `src/components/ui/`. Novos primitivos via CLI (`npx shadcn@latest add …`), não copiar de outro estilo.
+- Tailwind v4 + `cn()` de `@/lib/utils`. Ícones: Lucide (`lucide-react`).
+- Pastas: `components/layout`, `components/product`, `components/cart`.
+- Toasts: `sonner` — `Toaster` já está em `src/app/layout.tsx`. Usar `toast` / `toast.success` (como em `CartContext`).
+- Imagens remotas: só hosts em `next.config.ts` (`cdn.dummyjson.com`). Usar `next/image`.
+
+```tsx
+// ❌ BAD — "use client" sem estado/evento
+"use client";
+export default async function ProductPage() {}
+
+// ✅ GOOD — Server Component; client só no botão
+import { AddToCartButton } from "@/components/product/add-to-cart-button";
+```
