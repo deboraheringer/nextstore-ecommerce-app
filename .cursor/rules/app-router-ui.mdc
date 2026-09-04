@@ -12,6 +12,7 @@ alwaysApply: false
 - Pastas: `components/layout`, `components/product`, `components/cart`.
 - Toasts: `sonner` — `Toaster` já está em `src/app/layout.tsx`. Usar `toast` / `toast.success` (como em `CartContext`).
 - Imagens remotas: só hosts em `next.config.ts` (`cdn.dummyjson.com`). Usar `next/image`.
+- Review de UI/a11y/toque: seguir `.agents/skills/web-design-guidelines/SKILL.md` (auditoria, não redesenho). Layout mobile-first: classes sem prefixo no telefone, `md:`/`lg:` no desktop.
 
 ```tsx
 // ❌ BAD — "use client" sem estado/evento
