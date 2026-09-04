@@ -1,0 +1,27 @@
+---
+description: Drizzle + Neon HTTP; schema e migrações do NextStore
+globs: src/db/**,drizzle.config.ts,drizzle/**
+alwaysApply: false
+---
+
+# Banco — Drizzle e Neon
+
+ORM: **Drizzle** (não Prisma). Schema em `src/db/schema.ts`. Client em `src/db/index.ts`: `@neondatabase/serverless` (`neon`) + `drizzle-orm/neon-http`.
+
+Tabelas: `users`, `orders`, `order_items`. Produtos **não** vão para o banco; snapshot só em `order_items` no checkout (`productId`, `productTitle`, `price`, `quantity`).
+
+## Antes de mudar conexão, migração ou branch
+
+Seguir as skills (não duplicar docs aqui):
+
+- `.agents/skills/neon/SKILL.md`
+- `.agents/skills/neon-postgres/SKILL.md`
+
+Docs atuais: `https://neon.com/docs/llms.txt`
+
+## Conexões
+
+- App runtime: `DATABASE_URL` (pooled) — já usado em `src/db/index.ts`.
+- `db:generate` / `db:push`: preferir `DATABASE_URL_UNPOOLED` (conexão direta). Hoje `drizzle.config.ts` ainda usa só `DATABASE_URL` — **não alterar o config só por causa desta rule**.
+
+Não inventar Neon Auth, Functions ou Object Storage sem o usuário pedir (e sem instalar a skill correspondente).

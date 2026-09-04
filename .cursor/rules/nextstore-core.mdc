@@ -1,0 +1,38 @@
+---
+description: Mapa do NextStore — stack, limites e ponteiro para skills Neon e git-commit
+alwaysApply: true
+---
+
+# NextStore — núcleo
+
+App único (não monorepo): Next.js **16** App Router em `src/app/`, React 19, TypeScript `strict`, alias `@/*` → `src/*`.
+
+## Dados
+
+- Catálogo: DummyJSON via `src/services/api.ts` — **não** persistir produtos no Postgres.
+- Postgres só tem `users`, `orders`, `order_items` (`src/db/schema.ts`).
+- Sem auth de usuário, sem Prisma, sem suite de testes.
+
+## Carrinho e pagamento
+
+- Carrinho: `CartContext` + `localStorage` (`nextstore_cart`). Hidratação: preferir `useSyncExternalStore` para evitar mismatch SSR.
+- Pagamento: Stripe Checkout hospedado; fulfillment em `src/lib/fulfill-checkout.ts`.
+
+## Env (`.env.local` — nunca commitar)
+
+`DATABASE_URL`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_APP_URL`
+
+## Neon / Postgres / Drizzle
+
+Antes de qualquer tarefa de banco, CLI Neon, pooling ou migração, **ler** (não copiar para cá):
+
+1. `.agents/skills/neon/SKILL.md`
+2. `.agents/skills/neon-postgres/SKILL.md`
+
+Docs atuais: `https://neon.com/docs/llms.txt` — não usar memória de treino. Skills extras (`neon-functions`, Auth, Object Storage) só se a tarefa precisar **e** o usuário pedir.
+
+## Git / commit
+
+Ao terminar um pedaço lógico de trabalho, **propor** um commit (arquivos + mensagem) seguindo `.agents/skills/git-commit/SKILL.md`. **Nunca executar `git commit` sem perguntar e esperar um sim explícito** (“posso commitar?”). Se a resposta for não, deixar as mudanças no working tree.
+
+Mensagens **sempre em inglês** (subject e body), Conventional Commits — mesmo que o chat esteja em português. Ex.: `feat(cart): add quantity controls`. Nunca commitar `.env*`.

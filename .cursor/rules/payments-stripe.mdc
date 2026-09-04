@@ -1,0 +1,24 @@
+---
+description: Stripe Checkout hospedado e fulfillment idempotente
+globs: src/lib/stripe.ts,src/lib/fulfill-checkout.ts,src/app/api/**/*.ts,src/app/checkout/**
+alwaysApply: false
+---
+
+# Pagamentos Stripe
+
+Checkout **hospedado** (redirect para `session.url`). Não usar Stripe Elements no frontend.
+
+## Rotas
+
+- `POST /api/checkout` — cria Session; `productId` do DummyJSON em `product_data.metadata` (já em `src/app/api/checkout/route.ts`)
+- `POST /api/webhooks/stripe` — valida `STRIPE_WEBHOOK_SECRET`; trata `checkout.session.completed`
+- `POST /api/checkout/fulfill` — success page chama `fulfillCheckoutSession(sessionId)`
+
+Lógica compartilhada: `src/lib/fulfill-checkout.ts`.
+
+## Regras
+
+- Idempotência: se já existe `orders.stripeSessionId`, retornar o pedido (não inserir de novo).
+- Upsert de `users` pelo e-mail de `session.customer_details.email`.
+- Moeda `usd`; `unit_amount` em centavos (`Math.round(price * 100)`).
+- Não logar secrets nem payloads de cartão (só `error.message`).
