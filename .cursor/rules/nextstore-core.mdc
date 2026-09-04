@@ -1,5 +1,5 @@
 ---
-description: Mapa do NextStore — stack, limites e ponteiro para skills Neon e git-commit
+description: Mapa do NextStore — stack, limites e ponteiro para skills Neon, git-commit e UI
 alwaysApply: true
 ---
 
@@ -30,6 +30,10 @@ Antes de qualquer tarefa de banco, CLI Neon, pooling ou migração, **ler** (nã
 2. `.agents/skills/neon-postgres/SKILL.md`
 
 Docs atuais: `https://neon.com/docs/llms.txt` — não usar memória de treino. Skills extras (`neon-functions`, Auth, Object Storage) só se a tarefa precisar **e** o usuário pedir.
+
+## UI / acessibilidade / mobile
+
+Ao revisar UI, a11y, UX ou toque no mobile, **ler** `.agents/skills/web-design-guidelines/SKILL.md` e buscar as guidelines atuais (não copiar para cá). A skill audita; não substitui layout Tailwind mobile-first.
 
 ## Git / commit
 
